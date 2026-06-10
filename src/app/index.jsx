@@ -16,6 +16,14 @@ export default function HomeScreen() {
           <Text style={globalStyles.buttonText}>Go to Meals</Text>
         </Pressable>
       </Link>
+
+      <View style={{ marginTop: 20 }}>
+        <Link href="/add-meals" asChild>
+          <Pressable style={globalStyles.pressable}>
+            <Text style={globalStyles.buttonText}>Add Meals</Text>
+          </Pressable>
+        </Link>
+      </View>
     </ScrollView>
   );
 }
