@@ -1,79 +1,265 @@
 import { StyleSheet } from "react-native";
 
 export const colors = {
-  // Shadcn Zinc Palette (Dark Mode)
+  // Base
   background: "#09090b", // zinc-950
   foreground: "#fafafa", // zinc-50
-  card: "#09090b",
+
+  // Surface
+  card: "#18181b", // zinc-900
   cardForeground: "#fafafa",
-  popover: "#09090b",
-  primary: "#fafafa", // Primary is often inverted in dark mode
+
+  popover: "#18181b",
+  popoverForeground: "#fafafa",
+
+  // Brand
+  primary: "#fafafa",
   primaryForeground: "#18181b",
+
   secondary: "#27272a", // zinc-800
   secondaryForeground: "#fafafa",
-  muted: "#27272a",
-  mutedForeground: "#a1a1aa", // zinc-400
+
   accent: "#27272a",
-  border: "#27272a", // Subtle borders are key
-  input: "#27272a",
+  accentForeground: "#fafafa",
+
+  muted: "#18181b",
+  mutedForeground: "#a1a1aa", // zinc-400
+
+  // Borders & Inputs
+  border: "#27272a",
+  input: "#18181b",
   ring: "#d4d4d8",
-  alert: "#ef4444", // destructive
+
+  // Status
+  success: "#22c55e",
+  warning: "#f59e0b",
+  danger: "#ef4444",
+  info: "#3b82f6",
 };
 
 export const globalStyles = StyleSheet.create({
+  /* ---------- Layout ---------- */
+
   container: {
     flex: 1,
     backgroundColor: colors.background,
+    paddingHorizontal: 20,
     paddingTop: 60,
-    paddingHorizontal: 24, // Slightly wider gutters
   },
+
+  content: {
+    paddingBottom: 40,
+  },
+
+  centered: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  spaceBetween: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+
+  gap8: {
+    gap: 8,
+  },
+
+  gap12: {
+    gap: 12,
+  },
+
+  gap16: {
+    gap: 16,
+  },
+
+  /* ---------- Header ---------- */
+
+  header: {
+    marginTop: 12,
+    marginBottom: 28,
+  },
+
+  /* ---------- Typography ---------- */
+
   title: {
-    fontSize: 30,
+    fontSize: 32,
     fontWeight: "700",
-    letterSpacing: -0.75, // Tighter letter spacing for that modern UI feel
+    letterSpacing: -1,
     color: colors.foreground,
-    marginBottom: 4,
   },
+
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "600",
-    letterSpacing: -0.4,
+    letterSpacing: -0.5,
     color: colors.foreground,
-    marginTop: 32,
     marginBottom: 12,
   },
-  empty: {
+
+  subtitle: {
+    marginTop: 6,
+    fontSize: 15,
+    lineHeight: 22,
     color: colors.mutedForeground,
-    fontSize: 14,
-    textAlign: "center",
   },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 20,
+
+  body: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: colors.foreground,
   },
-  // Styled like a shadcn "Button" component
-  pressable: {
-    height: 40,
-    paddingHorizontal: 16,
-    backgroundColor: colors.primary,
-    borderRadius: 6, // shadcn uses a subtle 6px or 8px radius
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-  },
-  buttonText: {
-    color: colors.primaryForeground,
+
+  label: {
     fontSize: 14,
     fontWeight: "500",
+    color: colors.foreground,
+    marginBottom: 8,
   },
-  // Bonus: Card style for a "shadcn" look
+
+  caption: {
+    fontSize: 12,
+    color: colors.mutedForeground,
+  },
+
+  muted: {
+    fontSize: 14,
+    color: colors.mutedForeground,
+  },
+
+  empty: {
+    fontSize: 14,
+    textAlign: "center",
+    color: colors.mutedForeground,
+  },
+
+  /* ---------- Card ---------- */
+
   card: {
-    padding: 16,
-    borderRadius: 8,
+    backgroundColor: colors.card,
+    borderRadius: 14,
     borderWidth: 1,
     borderColor: colors.border,
-    backgroundColor: colors.card,
+    padding: 18,
+  },
+
+  cardHeader: {
+    marginBottom: 18,
+  },
+
+  /* ---------- Divider ---------- */
+
+  divider: {
+    height: 1,
+    backgroundColor: colors.border,
+    marginVertical: 16,
+  },
+
+  /* ---------- Input ---------- */
+
+  input: {
+    height: 52,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.input,
+    paddingHorizontal: 16,
+    color: colors.foreground,
+    fontSize: 16,
+  },
+
+  inputMultiline: {
+    minHeight: 120,
+    paddingTop: 14,
+    textAlignVertical: "top",
+  },
+
+  /* ---------- Button ---------- */
+
+  pressable: {
+    height: 48,
+    borderRadius: 10,
+    backgroundColor: colors.primary,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 8,
+  },
+
+  pressableSecondary: {
+    height: 48,
+    borderRadius: 10,
+    backgroundColor: colors.secondary,
+    borderWidth: 1,
+    borderColor: colors.border,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 8,
+  },
+
+  buttonText: {
+    color: colors.primaryForeground,
+    fontSize: 15,
+    fontWeight: "600",
+  },
+
+  secondaryButtonText: {
+    color: colors.foreground,
+    fontSize: 15,
+    fontWeight: "600",
+  },
+
+  /* ---------- Badge ---------- */
+
+  badge: {
+    alignSelf: "flex-start",
+    backgroundColor: colors.secondary,
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+
+  badgeText: {
+    color: colors.foreground,
+    fontSize: 12,
+    fontWeight: "600",
+  },
+
+  /* ---------- Avatar ---------- */
+
+  avatar: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: colors.secondary,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  avatarText: {
+    color: colors.foreground,
+    fontSize: 16,
+    fontWeight: "600",
+  },
+
+  /* ---------- Shadow ---------- */
+
+  shadow: {
+    shadowColor: "#000",
+    shadowOpacity: 0.18,
+    shadowRadius: 18,
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    elevation: 8,
   },
 });
