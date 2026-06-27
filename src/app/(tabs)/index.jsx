@@ -1,5 +1,6 @@
 import HomeHeader from "@/components/HomeHeader";
 import MacroGrid from "@/components/MacroGrid";
+import RecentMeals from "@/components/RecentMeals";
 import { globalStyles } from "@/styles/global";
 import { Link } from "expo-router";
 import { Pressable, ScrollView, Text, View } from "react-native";
@@ -10,8 +11,8 @@ export default function HomeScreen() {
       <Text style={globalStyles.title}>MacroZone</Text>
 
       <HomeHeader />
-
       <MacroGrid />
+      <RecentMeals />
 
       {/* Added asChild for better event forwarding */}
       <Link href="/meals" asChild style={{ marginTop: 20 }}>
@@ -20,7 +21,7 @@ export default function HomeScreen() {
         </Pressable>
       </Link>
 
-      <View style={{ marginTop: 20 }}>
+      <View style={{ marginTop: 20, marginBottom: 100 }}>
         <Link href="/add-meals" asChild>
           <Pressable style={globalStyles.pressable}>
             <Text style={globalStyles.buttonText}>Add Meals</Text>
