@@ -13,21 +13,7 @@ export default function HomeScreen() {
       <HomeHeader />
       <MacroGrid />
       <RecentMeals />
-
-      {/* Added asChild for better event forwarding */}
-      <Link href="/meals" asChild style={{ marginTop: 20 }}>
-        <Pressable style={globalStyles.pressable}>
-          <Text style={globalStyles.buttonText}>Go to Meals</Text>
-        </Pressable>
-      </Link>
-
-      <View style={{ marginTop: 20, marginBottom: 100 }}>
-        <Link href="/add-meals" asChild>
-          <Pressable style={globalStyles.pressable}>
-            <Text style={globalStyles.buttonText}>Add Meals</Text>
-          </Pressable>
-        </Link>
-      </View>
+      
     </ScrollView>
   );
 }

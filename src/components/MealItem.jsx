@@ -1,37 +1,59 @@
+import { colors, globalStyles } from "@/styles/global";
+import { Feather } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function MealItem({
-  name,
-  calories,
-  protein,
-  carbs,
-  fat,
-}) {
+export default function MealItem({ name, calories, protein, carbs, fat }) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.name}>{name}</Text>
-      <Text style={styles.macros}>
-        {calories} cal • {protein}g P • {carbs}g C • {fat}g F
-      </Text>
+    <View style={styles.card}>
+      <View style={styles.header}>
+        <View style={styles.icon}>
+          <Feather name="coffee" size={16} color={colors.foreground} />
+        </View>
+
+        <View style={styles.content}>
+          <Text style={styles.name}>{name}</Text>
+
+          <Text style={globalStyles.caption}>
+            {calories} kcal • {protein}g Protein • {carbs}g Carbs • {fat}g Fat
+          </Text>
+        </View>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#16213e",
-    borderRadius: 10,
+  card: {
+    backgroundColor: colors.card,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: colors.border,
     padding: 16,
-    marginBottom: 10,
   },
+
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  icon: {
+    width: 38,
+    height: 38,
+    borderRadius: 10,
+    backgroundColor: colors.secondary,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 14,
+  },
+
+  content: {
+    flex: 1,
+  },
+
   name: {
     fontSize: 16,
     fontWeight: "600",
-    color: "#ffffff",
-  },
-  macros: {
-    fontSize: 13,
-    color: "#a0a0b0",
-    marginTop: 4,
+    color: colors.foreground,
+    marginBottom: 4,
   },
 });

@@ -1,5 +1,10 @@
+import { addMeal } from "@/storage/meals";
+import { colors, globalStyles } from "@/styles/global";
+import { Feather } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { useState } from "react";
 import {
+  Alert,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -7,8 +12,6 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { Feather } from "@expo/vector-icons";
-import { colors, globalStyles } from "@/styles/global";
 
 export default function AddMealScreen() {
   const [name, setName] = useState("");
@@ -17,14 +20,32 @@ export default function AddMealScreen() {
   const [carbs, setCarbs] = useState("");
   const [fat, setFat] = useState("");
 
-  const handleAddMeal = () => {
-    console.log({
-      name,
-      calories,
-      protein,
-      carbs,
-      fat,
+  const handleAddMeal = async () => {
+    if (!name.trim() || !calories.trim()) {
+      Alert.alert(
+        "Missing Information",
+        "Please enter a meal name and calories."
+      );
+      return;
+    }
+
+    await addMeal({
+      name: name.trim(),
+      calories: Number(calories),
+      protein: Number(protein) || 0,
+      carbs: Number(carbs) || 0,
+      fat: Number(fat) || 0,
     });
+
+    setName("");
+    setCalories("");
+    setProtein("");
+    setCarbs("");
+    setFat("");
+
+    Alert.alert("Success", "Meal added successfully!");
+
+    router.replace("/");
   };
 
   return (
@@ -38,7 +59,8 @@ export default function AddMealScreen() {
         <Text style={globalStyles.title}>Add Meal</Text>
 
         <Text style={globalStyles.subtitle}>
-          Save a meal together with its nutritional information.
+          Save a meal together with its nutritional information for quick
+          tracking.
         </Text>
       </View>
 
@@ -68,9 +90,9 @@ export default function AddMealScreen() {
           />
         </View>
 
-        <View style={styles.row}>
+        <View style={styles.macroRow}>
           <View style={styles.macro}>
-            <Text style={globalStyles.label}>Protein</Text>
+            <Text style={globalStyles.label}>Protein (g)</Text>
 
             <TextInput
               style={globalStyles.input}
@@ -83,7 +105,7 @@ export default function AddMealScreen() {
           </View>
 
           <View style={styles.macro}>
-            <Text style={globalStyles.label}>Carbs</Text>
+            <Text style={globalStyles.label}>Carbs (g)</Text>
 
             <TextInput
               style={globalStyles.input}
@@ -96,7 +118,7 @@ export default function AddMealScreen() {
           </View>
 
           <View style={styles.macro}>
-            <Text style={globalStyles.label}>Fat</Text>
+            <Text style={globalStyles.label}>Fat (g)</Text>
 
             <TextInput
               style={globalStyles.input}
@@ -130,7 +152,7 @@ const styles = StyleSheet.create({
     marginBottom: 18,
   },
 
-  row: {
+  macroRow: {
     flexDirection: "row",
     gap: 12,
     marginBottom: 24,
@@ -141,6 +163,6 @@ const styles = StyleSheet.create({
   },
 
   pressed: {
-    opacity: 0.9,
+    opacity: 0.85,
   },
 });
