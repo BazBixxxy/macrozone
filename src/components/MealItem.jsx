@@ -1,48 +1,84 @@
+import { deleteMeal } from "@/storage/meals";
 import { colors, globalStyles } from "@/styles/global";
 import { Feather } from "@expo/vector-icons";
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 
-export default function MealItem({ name, calories, protein, carbs, fat }) {
+export default function MealItem({
+  id,
+  name,
+  calories,
+  protein,
+  carbs,
+  fat,
+  onDelete,
+}) {
+  const handleLongPress = () => {
+    Alert.alert("Delete Meal", `Are you sure you want to delete "${name}"?`, [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: async () => {
+          await deleteMeal(id);
+          onDelete();
+        },
+      },
+    ]);
+  };
+
   return (
-    <View style={styles.card}>
-      <View style={styles.header}>
-        <View style={styles.icon}>
-          <Feather name="coffee" size={16} color={colors.foreground} />
-        </View>
-
-        <View style={styles.content}>
-          <Text style={styles.name}>{name}</Text>
-
-          <Text style={globalStyles.caption}>
-            {calories} kcal • {protein}g Protein • {carbs}g Carbs • {fat}g Fat
-          </Text>
-        </View>
+    <Pressable
+      onLongPress={handleLongPress}
+      style={({ pressed }) => [styles.card, pressed && styles.pressed]}
+    >
+      <View style={styles.iconContainer}>
+        <Feather name="coffee" size={18} color={colors.foreground} />
       </View>
-    </View>
+
+      <View style={styles.content}>
+        <Text style={styles.name}>{name}</Text>
+
+        <Text style={globalStyles.caption}>
+          {calories} kcal • {protein}g Protein • {carbs}g Carbs • {fat}g Fat
+        </Text>
+      </View>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
+    flexDirection: "row",
+    alignItems: "center",
+
     backgroundColor: colors.card,
+
     borderRadius: 14,
+
     borderWidth: 1,
     borderColor: colors.border,
+
     padding: 16,
   },
 
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
+  pressed: {
+    opacity: 0.8,
   },
 
-  icon: {
-    width: 38,
-    height: 38,
+  iconContainer: {
+    width: 40,
+    height: 40,
+
     borderRadius: 10,
+
     backgroundColor: colors.secondary,
+
     justifyContent: "center",
     alignItems: "center",
+
     marginRight: 14,
   },
 

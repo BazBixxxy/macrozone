@@ -1,48 +1,69 @@
-import { globalStyles } from "@/styles/global";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { colors, globalStyles } from "@/styles/global";
+import { Feather } from "@expo/vector-icons";
+import { StyleSheet, Text, View } from "react-native";
 import MealItem from "./MealItem";
 
-export default function RecentMeals() {
+export default function RecentMeals({ meals, onDelete }) {
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <Text style={globalStyles.sectionTitle}>Recent Meals</Text>
 
-      <View style={styles.list}>
-        <MealItem
-          name="Chicken & Rice"
-          calories={540}
-          protein={45}
-          carbs={50}
-          fat={12}
-        />
+      {meals.length === 0 ? (
+        <View style={styles.emptyState}>
+          <View style={styles.emptyIcon}>
+            <Feather name="coffee" size={22} color={colors.mutedForeground} />
+          </View>
 
-        <MealItem
-          name="Protein Shake"
-          calories={280}
-          protein={30}
-          carbs={20}
-          fat={8}
-        />
+          <Text style={globalStyles.muted}>No meals logged yet.</Text>
 
-        <MealItem
-          name="Salmon Salad"
-          calories={430}
-          protein={35}
-          carbs={10}
-          fat={25}
-        />
-      </View>
-    </ScrollView>
+          <Text style={globalStyles.caption}>
+            Meals you add will appear here.
+          </Text>
+        </View>
+      ) : (
+        <View style={styles.list}>
+          {meals.slice(0, 5).map((meal) => (
+            <MealItem
+              key={meal.id}
+              id={meal.id}
+              name={meal.name}
+              calories={meal.calories}
+              protein={meal.protein}
+              carbs={meal.carbs}
+              fat={meal.fat}
+              onDelete={onDelete}
+            />
+          ))}
+        </View>
+      )}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     marginTop: 32,
-    marginBottom: 92,
+    marginBottom: 80,
   },
 
   list: {
     gap: 12,
+  },
+
+  emptyState: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 36,
+    gap: 10,
+  },
+
+  emptyIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 12,
+    backgroundColor: colors.secondary,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 4,
   },
 });
