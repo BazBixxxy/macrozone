@@ -1,7 +1,8 @@
 import MealItem from "@/components/MealItem";
-import { clearAllMeals, getMeals, Meal } from "@/storage/meals";
+import { clearAllMeals, getMeals } from "@/storage/meals";
 import { colors, globalStyles } from "@/styles/global";
 import { Feather } from "@expo/vector-icons";
+import * as Haptics from "expo-haptics";
 import { useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
 import {
@@ -37,6 +38,7 @@ export default function AllMealsScreen() {
           style: "destructive",
           onPress: async () => {
             await clearAllMeals();
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
             loadMeals();
           },
         },
@@ -73,15 +75,9 @@ export default function AllMealsScreen() {
               pressed && styles.pressed,
             ]}
           >
-            <Feather
-              name="trash-2"
-              size={16}
-              color={colors.danger}
-            />
+            <Feather name="trash-2" size={16} color={colors.danger} />
 
-            <Text style={styles.clearText}>
-              Clear
-            </Text>
+            <Text style={styles.clearText}>Clear</Text>
           </Pressable>
         )}
       </View>
@@ -96,9 +92,7 @@ export default function AllMealsScreen() {
             />
           </View>
 
-          <Text style={globalStyles.muted}>
-            No meals logged yet.
-          </Text>
+          <Text style={globalStyles.muted}>No meals logged yet.</Text>
 
           <Text style={globalStyles.caption}>
             Meals you save will appear here.

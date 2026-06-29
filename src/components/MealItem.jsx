@@ -1,6 +1,7 @@
 import { deleteMeal } from "@/storage/meals";
 import { colors, globalStyles } from "@/styles/global";
 import { Feather } from "@expo/vector-icons";
+import * as Haptics from "expo-haptics";
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function MealItem({
@@ -24,6 +25,7 @@ export default function MealItem({
         onPress: async () => {
           await deleteMeal(id);
           onDelete();
+          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
         },
       },
     ]);
